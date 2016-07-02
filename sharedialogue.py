@@ -1,32 +1,41 @@
 import tkinter
 import os
-#import sharescraper.py
+import sharescraper
 
+@echo_off
+
+textvar='fine'
 
 def spm():
 
     window = tkinter.Tk()
     window.title('SharePricer')
 
-    lbl = tkinter.Label(window,text="Enter 3xyz")
-    lbl.grid(row=0,sticky='ew')#(side=L)
+    lbl = tkinter.Label(window,text="Enter Ticker")
+    lbl.grid(row=1,sticky='ew')#(side=L)
     
-    ent = tkinter.Entry(window)
-    ent.grid(row=1,column=0,sticky='e')#(side=L)
+    global ent
+    ent = tkinter.Entry(window,textvar='')
+    ent.grid(row=2,column=0,sticky='e')#(side=L)
 
+    global txt
     txt = tkinter.Label(window,text="$xx.xx")
-    txt.grid(row=1,column=1,sticky='ew')
+    txt.grid(row=2,column=1,sticky='ew')
     
-    btn=tkinter.Button(window,text="$",command=pricefind)
-    btn.grid(row=2)#(side=L)
+    btn=tkinter.Button(window,text="$",command=lambda:pricefind(textvar))
+    btn.grid(row=3,sticky='ew')#(side=L)
 
     window.mainloop()
     pass
 
-def pricefind():
-    
+def pricefind(sel):
+    e=ent.get()
+
+    price=sharescraper.shareprice(e)
+
+    txt.configure(text='$'+str(price))
         
-    pass
+    return
 
 
 
@@ -35,8 +44,4 @@ spm()
 
 
 
-z = input()
 
-g = sharescraper.shareprice('z')
-
-print(g)
